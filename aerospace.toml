@@ -1,6 +1,8 @@
 config-version = 2
 
-after-startup-command = []
+after-startup-command = [
+    'exec-and-forget borders',
+]
 start-at-login = true
 
 enable-normalization-flatten-containers = true
@@ -13,20 +15,28 @@ default-root-container-orientation = 'auto'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 automatically-unhide-macos-hidden-apps = false
 
-persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
 on-mode-changed = []
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
 
 [key-mapping]
     preset = 'qwerty'
 
 [gaps]
-    inner.horizontal = 0
-    inner.vertical =   0
-    outer.left =       0
-    outer.bottom =     0
-    outer.top =        0
-    outer.right =      0
+    inner.horizontal = 8
+    inner.vertical =   8
+    outer.left =       8
+    outer.bottom =     8
+    outer.top =        8
+    outer.right =      8
 
 [mode.main.binding]
 
@@ -65,7 +75,7 @@ on-mode-changed = []
     cmd-7 = 'workspace 7'
     cmd-8 = 'workspace 8'
     cmd-9 = 'workspace 9'
-    cmd-0 = 'workspace 0'
+    cmd-0 = 'workspace 10'
 
     # Move window to workspace + follow (cmd-shift)
     cmd-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
@@ -77,7 +87,7 @@ on-mode-changed = []
     cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
     cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
     cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
-    cmd-shift-0 = ['move-node-to-workspace 0', 'workspace 0']
+    cmd-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 
     # Workspace navigation
     cmd-leftSquareBracket = 'workspace prev --wrap-around'
@@ -89,6 +99,13 @@ on-mode-changed = []
     cmd-shift-enter = 'exec-and-forget ~/.config/aerospace/open-terminal.sh'
     cmd-shift-b = 'exec-and-forget ~/.config/aerospace/open-browser.sh'
     cmd-shift-m = 'exec-and-forget open -a Music'
+
+    # Disable accidental app hiding
+    cmd-h = []
+    cmd-alt-h = []
+
+    # Resize mode
+    alt-r = 'mode resize'
 
     # Service mode
     alt-shift-semicolon = 'mode service'
@@ -102,3 +119,13 @@ on-mode-changed = []
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
+
+[mode.resize.binding]
+    h = 'resize width -50'
+    l = 'resize width +50'
+    j = 'resize height +50'
+    k = 'resize height -50'
+    minus = 'resize smart -50'
+    equal = 'resize smart +50'
+    enter = 'mode main'
+    esc = 'mode main'
